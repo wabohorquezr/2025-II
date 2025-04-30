@@ -147,7 +147,7 @@ function poly(raices)
    end
    return real.(pol)
 end
-
+##2
 function reverse_poly(polyn)
     n = length(polyn)
     poly_r = zeros(Complex,n)
