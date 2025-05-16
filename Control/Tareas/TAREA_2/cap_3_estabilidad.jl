@@ -19,6 +19,8 @@ fig_2 = nyquistplot!(L,-w,xlims=(-1, 1.5), ylims=(-1.5, 1.5),linecolor="blue")
 #
 
 
+
+
 L1 = zpk([],[-0.5,-1, -2],1)
 fig1 = nyquistplot(L1; unit_circle=true)  
 re_n, im_n, w = nyquistv(L1) 
