@@ -7,9 +7,10 @@ using Plots
 L = zpk([],[-1, -2],2)
 fig = nyquistplot(L; unit_circle=true)  
 re_n, im_n, w = nyquistv(L)  
-fig_n = nyquistplot(L,xlims=(-1.5, 1), ylims=(-1.5, 1.5),linecolor="blue")
+fig_n = nyquistplot(L,xlims=(-1.5, 1);Mt_circles = [1.000001] ,ylims=(-1.5, 1.5),linecolor="blue")
 fig_2 = nyquistplot!(L,-w,xlims=(-1, 1.5), ylims=(-1.5, 1.5),linecolor="blue")
 #
+hinfnorm(L)
 #Definción de la función L
 L = zpk([],[-1, -2],2)
 fig = nyquistplot(L; unit_circle=true)  
@@ -27,7 +28,9 @@ re_n, im_n, w = nyquistv(L1)
 w_n = [reverse(-w);w] 
 fig_n = nyquistplot(L1,xlims=(-1.5, 1), ylims=(-2, 2),linecolor="blue")
 fig_2 = nyquistplot!(L1,-w,xlims=(-1.5, 1), ylims=(-2, 2),linecolor="blue")
-#
+
+hinfnorm(L1)
+dcgain(L1)
 fig_3 = nyquistplot!(11.25*L1,xlims=(-3, 1), ylims=(-2, 2),linecolor="red")
 fig_4 = nyquistplot!(11.25*L1,-w,xlims=(-3, 1), ylims=(-2, 2),linecolor="red")
 #
