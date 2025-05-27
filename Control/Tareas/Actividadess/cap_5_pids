@@ -1,0 +1,41 @@
+include("ControlUN.jl")
+# diseño Ziegler-Nichols
+s = tf("s")
+P = 1/(s+1) * 1/(1.25s+1) * 1/(4s+1)
+step_plt(P, 25)
+L = 1.303
+K = 1
+t1 = 8.89
+a = 0.172
+T = t1 - L 
+# Z-N lazo abierto
+kp = 1.2/a
+Ti = 2L
+ki = kp/Ti
+Td = 0.5L
+Tf = Td/10
+kd = kp * Td
+kd = 3
+Col = pid(kp, ki, kd; Tf = Tf)
+T = feedback(P * Col)
+step_plt(T,20)
+Gur = minreal(T/P)
+max_resp_step(Gur)
+yu_stp_plt(T, Gur, 10)
+# Z-N lazo cerrado
+wgm1, gm1, wpm1, pm1 = margin(P)
+T = feedback(P*gm1[1])
+step_plt(T,20)
+kp_c = 0.6gm1[1]
+Tcr = 2π/wgm1[1]
+Ti = 0.5Tcr
+ki_c = kp / Ti
+Td = .125Tcr
+Tf = Td/10
+kd_c = kp * Td
+Ccl = pid(kp_c , ki_c, kd_c; Tf = Tf)
+T_c = feedback(P * Ccl)
+step_plt(T_c,10)
+Gur_c = minreal(T_c/P)
+max_resp_step(Gur_c)
+yu_stp_plt(T_c, Gur_c, 10)
