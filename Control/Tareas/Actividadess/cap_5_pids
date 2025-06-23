@@ -39,3 +39,19 @@ step_plt(T_c,10)
 Gur_c = minreal(T_c/P)
 max_resp_step(Gur_c)
 yu_stp_plt(T_c, Gur_c, 10)
+
+
+
+
+using ControlSystems, LinearAlgebra, Plots
+A = [-3 -1;2 0]
+B = [0.5;0]
+C = [0 1]
+sys = ss(A, B, C, 0)
+Q = 25.0I(2)
+R = 2.0
+G = lqr(sys,Q,R)
+sys_cl = ss(A-B*G,B,C,0)
+step_plt(sys_cl,5)
+G_ur = minreal(sys_cl / sys)
+plt = yu_stp_plt(sys_cl,G_ur,5)
